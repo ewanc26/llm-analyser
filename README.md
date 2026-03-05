@@ -68,3 +68,7 @@ This command will analyze all `.docx` files in the `~/Documents/Literature/Poetr
 The `Modelfile` contains the system prompt and parameters for the Ollama model. You can customize this file to change the model's behavior or use a different base model.
 
 After modifying the `Modelfile`, you might need to rebuild the model if you've changed the `FROM` line or other core parameters. Refer to the Ollama documentation for details on building custom models.
+
+## ☕ Support
+
+If you found this useful, consider [buying me a ko-fi](https://ko-fi.com/ewancroft)!
