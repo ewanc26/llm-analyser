@@ -1,73 +1,70 @@
 # LLM Analyser
 
-This project provides a tool to analyze `.docx` files and generate analytical essays using Ollama.
+This project analyses one or more `.docx` files and uses Ollama to generate Markdown essays about them.
 
-## Prerequisites
+> 🧶 Also available on [Tangled](https://tangled.org/ewancroft.uk/llm-analyser)
 
-Before you begin, ensure you have the following installed:
+## Requirements
 
-- **Python 3.x**: You can download it from [python.org](https://www.python.org/downloads/).
-- **Ollama**: Follow the installation instructions on the [Ollama website](https://ollama.com/).
+- Python 3.x
+- Ollama installed locally
+- Python packages from `requirements.txt`
 
-## Setup
+Install the Python dependencies with:
 
-1.  **Clone the repository (if you haven't already):**
+```bash
+pip install -r requirements.txt
+```
 
-    ```bash
-    git clone git@github.com:ewanc26/llm-analyser.git
-    cd llm-analyser
-    ```
+Then create the custom Ollama model defined by the bundled `Modelfile`:
 
-2.  **Create a virtual environment (recommended):**
-
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
-
-3.  **Install the required Python packages:**
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-    *Note: If `requirements.txt` does not exist, you will need to create it based on the project's dependencies (e.g., `python-docx`, `ollama`).*
-
-4.  **Pull the required Ollama model:**
-
-    This project uses the `llama3.2` model by default. You can pull it using the Ollama CLI:
-
-    ```bash
-    ollama create document-analyser -f './Modelfile'
-    ```
-
-    If you wish to use a different model, update the `Modelfile` and the `main.py` script accordingly.
+```bash
+ollama create document-analyser -f ./Modelfile
+```
 
 ## Usage
 
-To analyze `.docx` files in a directory and generate essays, run the `main.py` script:
+Run the analyser against a directory of `.docx` files:
 
 ```bash
-python3 main.py <directory_to_analyze>
+python main.py <directory_to_analyse>
 ```
 
-**Arguments:**
-
--   `<directory_to_analyse>`: The path to the directory containing the `.docx` files you want to analyze.
-
-**Example:**
+Optional flags:
 
 ```bash
-python main.py ~/Documents/Literature/Poetry 
+python main.py <directory_to_analyse> -m llama3.2
+python main.py <directory_to_analyse> -o ./my-output
 ```
 
-This command will analyze all `.docx` files in the `~/Documents/Literature/Poetry` directory and generate essays using the `llama3.2` model. The essays will be saved in a new folder named `Poetry_essays` within the project root.
+- `-m, --model` — Ollama model name to use
+- `-o, --output` — output directory for generated essays
 
-## Modifying the Ollama Model
+If no output directory is supplied, the script writes essays into a folder named `<directory-slug>_essays` next to `main.py`.
 
-The `Modelfile` contains the system prompt and parameters for the Ollama model. You can customize this file to change the model's behavior or use a different base model.
+## What it does
 
-After modifying the `Modelfile`, you might need to rebuild the model if you've changed the `FROM` line or other core parameters. Refer to the Ollama documentation for details on building custom models.
+- Scans the target directory recursively for `.docx` files
+- Reads both paragraphs and tables from each document
+- Builds a Markdown essay for each file using the configured Ollama model
+- Processes files concurrently for faster batch runs
+
+## Project structure
+
+```text
+main.py        # CLI entry point and analysis orchestration
+Modelfile      # Ollama model definition and prompt
+requirements.txt
+```
+
+## Modifying the model
+
+`Modelfile` contains the model instructions and parameters. Edit it if you want to change the prompt, temperature, or base model, then recreate the model with `ollama create`.
+
+## Notes
+
+- The script uses `python-docx` to read Word documents.
+- Empty or unreadable documents are still reported, but the generated output will note that no readable content was found.
 
 ## ☕ Support
 
