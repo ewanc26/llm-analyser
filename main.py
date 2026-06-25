@@ -8,6 +8,7 @@ from src.llm_analyser.cli import parse_args, validate_args
 
 
 def main():
+    """Parse args and run document analysis across the given directory."""
     args = parse_args()
     validate_args(args)
 

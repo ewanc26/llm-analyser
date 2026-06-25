@@ -8,6 +8,9 @@ import ollama
 
 def analyze_document(file_path: Path, model_name: str) -> Dict:
     """Process a single .docx file and return its content and generated essay."""
+    # Deferred imports to keep module-level deps loose — docx_reader and prompt
+    # pull in python-docx and heavy string templates respectively, which we
+    # only need at call time.
     from .docx_reader import read_docx
     from .prompt import build_analysis_prompt
 

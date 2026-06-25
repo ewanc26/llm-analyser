@@ -23,7 +23,14 @@ def get_output_dir(directory: str, output_dir: str | None = None) -> Path:
 
 
 def executor_settings() -> tuple[type, int]:
-    """Determine the best executor (process vs thread) and worker count."""
+    """
+    Pick the best parallel executor and worker count for the host.
+
+    Multiprocessing tends to win on machines with 4+ cores because the GIL is a
+    bottleneck for CPU-heavy prompt parsing; below that threshold threading avoids
+    the serialisation overhead for marginal gain. The dynamic import keeps the
+    import cost deferred until this function is actually called.
+    """
     use_multiprocessing = os.cpu_count() is not None and os.cpu_count() >= 4
     Executor = (
         __import__("concurrent.futures").futures.ProcessPoolExecutor

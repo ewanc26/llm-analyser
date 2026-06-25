@@ -5,7 +5,13 @@ from typing import Dict
 
 
 def build_analysis_prompt(file_path: Path, content: Dict) -> str:
-    """Build the LLM prompt for analyzing a .docx document."""
+    """
+    Build the LLM prompt for analysing a .docx document.
+
+    Content is truncated to 500 characters to keep context windows manageable
+    for local models — enough signal for thematic analysis without blowing the
+    budget on raw text.
+    """
     tables_section = (
         f"**Tables/Structured Data:**\n{content['tables']}" if content["tables"] else ""
     )
