@@ -20,4 +20,4 @@ This project provides a tool to analyze .docx files and generate analytical essa
 
 ## Recent history
 
-Sync AGENTS.md from zincfox; Sync AGENTS.md from zincfox; Sync CONTRIBUTING.md from zincfox; Sync CONTRIBUTING.md from zincfox; Update issue template config
+Update issue template config
