@@ -7,7 +7,7 @@ A tool that analyses one or more `.docx` files and uses a local Ollama model to 
 ```bash
 pip install -r requirements.txt
 ollama create document-analyser -f ./Modelfile
-python main.py <directory_to_analyse> --dry-run-safe  # see README for flags
+python main.py <directory_to_analyse>
 ```
 
 Options: `-m` selects the Ollama model, `-o` sets the output directory (default: `<directory-slug>_essays` beside `main.py`).
@@ -27,4 +27,4 @@ Options: `-m` selects the Ollama model, `-o` sets the output directory (default:
 
 ## Licence
 
-GPL-3.0 (see [LICENSE](LICENSE)). Contributions are accepted under the same terms. Contributions are accepted under the same terms.
+GPL-3.0 (see [LICENSE](LICENSE)). Contributions are accepted under the same terms.
