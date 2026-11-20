@@ -1,19 +1,30 @@
-# Contributing to llm-analyser
+# Contributing to LLM Analyser
 
-This project provides a tool to analyze .docx files and generate analytical essays using Ollama.
+A tool that analyses one or more `.docx` files and uses a local Ollama model to generate Markdown essays about them, processing files concurrently. Thanks for wanting to help!
 
-## Project context
+## Getting started
 
-- Primary language: Python
-- Default branch: main
+```bash
+pip install -r requirements.txt
+ollama create document-analyser -f ./Modelfile
+python main.py <directory_to_analyse> --dry-run-safe  # see README for flags
+```
 
-## Before submitting changes
+Options: `-m` selects the Ollama model, `-o` sets the output directory (default: `<directory-slug>_essays` beside `main.py`).
 
-- Read the README, manifests, and CI workflows before choosing commands.
-- Run the documented formatter, linter, build, and test checks relevant to your change.
-- Keep commits focused and explain compatibility or operational impact.
-- Open changes through a pull request with verification results.
+## Notes for this project
 
-## Recent direction
+- `Modelfile` **is** the model: prompt, parameters and base model all live there. If you change it, recreate with `ollama create document-analyser -f ./Modelfile` and re-run before opening the PR.
+- `python-docx` reads both paragraphs and tables — keep table extraction working; documents are often more table than prose.
+- Empty or unreadable documents must still be reported gracefully, with output noting that no readable content was found; keep that failure path covered.
+- Concurrency is a feature (batch runs on many files); don't serialise it in a fix without saying so in the PR.
 
-Recent commits: Update issue template config
+## Before opening a PR
+
+- The documented build and tests pass, and you ran them yourself.
+- Conventional commits; one focused PR per change.
+- AI-assisted PRs are welcome; stand behind every line.
+
+## Licence
+
+GPL-3.0 (see [LICENSE](LICENSE)). Contributions are accepted under the same terms. Contributions are accepted under the same terms.
