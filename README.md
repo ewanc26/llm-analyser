@@ -81,3 +81,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow and the checks required 
 ## Licence
 
 See [LICENSE](LICENSE) for the licence terms.
+
+Copyright (C) 2025-2026 Ewan Croft (ewanc26).
